@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur de devises</title>
+</head>
+<body>
+    <table class="converter">
+        <tr>
+            <h2>Convertisseur de devises avec Boutton</h2>
+        </tr>
+        <tr>
+            <th>Symbole</th>
+            <th>Devise</th>
+            <th>Montant</th>
+        </tr>
+        <tr>
+            <th>€</th>
+            <td>Euro</td>
+            <td><input type="number" id="euro" value="0" step="0.01" min="0"></td>
+            <td><button id="convertBtnE">Convertir € vers $ & A$</button></td>
+        </tr>
+        <tr>
+            <th>$</th>
+            <td>Dollar Américain</td>
+            <td><input type="number" id="usd" value="0" step="0.01" min="0"></td>
+            <td><button id="convertBtnU">Convertir $ vers € & A$</button></td>
+        </tr>
+        <tr>
+            <th>A$</th>
+            <td>Dollar Australien</td>
+            <td><input type="number" id="aud" value="0" step="0.01" min="0"></td>
+            <td><button id="convertBtnA">Convertir A$ vers € & $</button></td>
+        </tr>
+    </table>
+    <table class="converter">
+        <tr>
+            <h2>Convertisseur de devises Automatique</h2>
+        </tr>
+        <tr>
+            <th>Symbole</th>
+            <th>Devise</th>
+            <th>Montant</th>
+        </tr>
+        <tr>
+            <th>€</th>
+            <td>Euro</td>
+            <td><input type="number" id="euro2" value="0" step="0.01" min="0"></td>
+        </tr>
+        <tr>
+            <th>$</th>
+            <td>Dollar Américain</td>
+            <td><input type="number" id="usd2" value="0" step="0.01" min="0"></td>
+        </tr>
+        <tr>
+            <th>A$</th>
+            <td>Dollar Australien</td>
+            <td><input type="number" id="aud2" value="0" step="0.01" min="0"></td>
+        </tr>
+    </table>
+    <script>
+        //Taux de change le 26 septembre 2025
+        const USD_IND = 1.17;
+        const AUD_IND = 1.79;
+
+        //Version 1
+        const euroInput = document.getElementById('euro');
+        const usdInput = document.getElementById('usd');
+        const audInput = document.getElementById('aud');
+        const convertBtn = document.getElementById('convertBtn');
+
+        function convertFromEuro() {
+            const euroValue = parseFloat(euroInput.value) || 0;
+            usdInput.value = (euroValue * USD_IND).toFixed(2);
+            audInput.value = (euroValue * AUD_IND).toFixed(2);
+        }
+
+        function convertFromUSD() {
+            const usdValue = parseFloat(usdInput.value) || 0;
+            euroInput.value = (usdValue / USD_IND).toFixed(2);
+            audInput.value = (usdValue / USD_IND * AUD_IND).toFixed(2);
+        }
+
+        function convertFromAUD() {
+            const audValue = parseFloat(audInput.value) || 0;
+            euroInput.value = (audValue / AUD_IND).toFixed(2);
+            usdInput.value = (audValue / AUD_IND * USD_IND).toFixed(2);
+        }
+
+        convertBtnE.addEventListener('click', convertFromEuro);
+        convertBtnU.addEventListener('click', convertFromUSD);
+        convertBtnA.addEventListener('click', convertFromAUD);
+
+        //Version 2
+        const euro2Input = document.getElementById('euro2');
+        const usd2Input = document.getElementById('usd2');
+        const aud2Input = document.getElementById('aud2');
+
+        function convertFromEuro2() {
+            const euro2Value = parseFloat(euro2Input.value) || 0;
+            usd2Input.value = (euro2Value * USD_IND).toFixed(2);
+            aud2Input.value = (euro2Value * AUD_IND).toFixed(2);
+        }
+
+        function convertFromUSD2() {
+            const usd2Value = parseFloat(usd2Input.value) || 0;
+            euro2Input.value = (usd2Value / USD_IND).toFixed(2);
+            aud2Input.value = (usd2Value / USD_IND * AUD_IND).toFixed(2);
+        }
+
+        function convertFromAUD2() {
+            const aud2Value = parseFloat(aud2Input.value) || 0;
+            euro2Input.value = (aud2Value / AUD_IND).toFixed(2);
+            usd2Input.value = (aud2Value / AUD_IND * USD_IND).toFixed(2);
+        }
+
+        euro2Input.addEventListener('input', convertFromEuro2);
+        usd2Input.addEventListener('input', convertFromUSD2);
+        aud2Input.addEventListener('input', convertFromAUD2);
+    </script>
+</body>
+</html>
